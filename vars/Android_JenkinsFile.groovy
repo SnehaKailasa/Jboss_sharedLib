@@ -3,13 +3,15 @@ def call(Map pipelineParams)
   node {
     def scmVars
     stage ('Git Checkout') {
-      scmVars = checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Dosakaya1.git']]]
+      scmVars = checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/Testing']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Dosakaya1.git']]]
       println scmVars.GIT_BRANCH
+      println "******"
     }
 
     stage ('Gradle Build') {
       sh 'echo `git name-rev --name-only HEAD`'
       def branchname = sh(script: 'git name-rev --name-only HEAD', returnStdout: true)
+      println "_____"
       println branchname
       if (branchname.contains('master'))
       {
