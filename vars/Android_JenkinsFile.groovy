@@ -9,6 +9,7 @@ def call(Map pipelineParams)
 
     stage ('Gradle Build') {
       def BranchName = sh(script: 'git name-rev --name-only HEAD', returnStdout: true)
+      println BranchName
       if (BranchName.contains('master'))
       {
         println "Release"
