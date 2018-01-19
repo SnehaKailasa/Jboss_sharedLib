@@ -6,8 +6,15 @@ def call(Map pipelineParams)
     }
 
     stage ('Gradle Build') {
-      sh ''' ./gradlew clean build assembleRelease
-      echo "These are the apk's generated with this build."
+      if (${env.GIT_BRANCH}contains('master'))
+      {
+        sh './gradlew clean build assembleRelease'
+      }
+      else
+      {
+        sh './gradlew clean build assembleDebug'
+      }
+      sh ''' echo "These are the apk's generated with this build."
       ls -l /var/lib/jenkins/workspace/Android_Project/app/build/outputs/apk '''
     }
 
