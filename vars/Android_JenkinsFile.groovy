@@ -9,6 +9,7 @@ def call(Map pipelineParams)
       println "${env.GIT_BRANCH}"
       println "${env.GIT_LOCAL_BRANCH}"
       println "${env.BRANCH}"
+      println "${env}"
       if ("${env.GIT_BRANCH}".contains('master'))
       {
         println "Release"
