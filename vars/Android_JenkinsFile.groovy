@@ -4,18 +4,15 @@ def call(Map pipelineParams)
     def scmVars
     stage ('Git Checkout') {
       scmVars = checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/Testing']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Dosakaya1.git']]]
-      println scmVars.GIT_BRANCH
     }
 
     stage ('Gradle Build') {
       if (scmVars.GIT_BRANCH.contains('master'))
       {
-        println "Release"
         sh './gradlew clean build assembleRelease'
       }
       else
       {
-        println "Debug"
         sh './gradlew clean build assembleDebug'
       }
       sh ''' echo "These are the apk's generated with this build."
