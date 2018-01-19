@@ -12,7 +12,7 @@ def call(Map pipelineParams)
       def branchname = sh(script: 'git name-rev --name-only HEAD', returnStdout: true)
       println "************"
       println branchname
-      if ("${env.BRANCH_NAME}".contains('master'))
+      if (branchname.contains('master'))
       {
         println "Release"
         sh './gradlew clean build assembleRelease'
