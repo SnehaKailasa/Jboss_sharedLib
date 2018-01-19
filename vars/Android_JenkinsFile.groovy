@@ -2,7 +2,7 @@ def call(Map pipelineParams)
 {
   node {
     stage ('Git Checkout') {
-      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Dosakaya1.git']]]
+      checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Dosakaya1.git']]]
     }
 
     stage ('Gradle Build') {
@@ -11,6 +11,7 @@ def call(Map pipelineParams)
       println "${env.BRANCH}"
       println "${env}"
       println "${env.BRANCH_NAME}"
+      
       if ("${env.GIT_BRANCH}".contains('master'))
       {
         println "Release"
