@@ -8,10 +8,12 @@ def call(Map pipelineParams)
     stage ('Gradle Build') {
       if ("${env.GIT_BRANCH}".contains('master'))
       {
+        println "Release"
         sh './gradlew clean build assembleRelease'
       }
       else
       {
+        println "Debug"
         sh './gradlew clean build assembleDebug'
       }
       sh ''' echo "These are the apk's generated with this build."
