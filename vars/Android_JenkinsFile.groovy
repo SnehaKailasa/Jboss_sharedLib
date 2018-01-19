@@ -6,7 +6,8 @@ def call(Map pipelineParams)
     }
 
     stage ('Gradle Build') {
-      if ("${BRANCH_NAME}".contains('master'))
+      sh 'echo `git rev-parse HEAD`'
+      if ("${env.BRANCH_NAME}".contains('master'))
       {
         println "Release"
         sh './gradlew clean build assembleRelease'
