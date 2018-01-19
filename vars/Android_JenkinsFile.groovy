@@ -6,6 +6,7 @@ def call(Map pipelineParams)
     }
 
     stage ('Gradle Build') {
+      println "${env.GIT_BRANCH}"
       if ("${env.GIT_BRANCH}".contains('master'))
       {
         println "Release"
