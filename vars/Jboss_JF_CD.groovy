@@ -9,7 +9,7 @@ node {
 			def downloadSpec = """{
 			   "files": [
 			    {
-				"pattern": "fortna_snapshot/*.war",
+				"pattern": "fortna_snapshot/org/o7planning/SpringMVCSecurityXML/0.0.1-SNAPSHOT/SpringMVCSecurityXML-0.0.1-20180123.091547-1.war",
 				"target": "artifactories/"
 			    }
 			]
