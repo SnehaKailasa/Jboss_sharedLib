@@ -4,6 +4,7 @@ def call(Map pipelineParams)
 		def scmVars
 		def server = Artifactory.server 'server1'
 		def rtGradle = Artifactory.newGradleBuild()
+		def buildInfo
 	   
 		stage ('Git Checkout') {
 		  scmVars = checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Dosakaya1.git']]]
@@ -14,11 +15,11 @@ def call(Map pipelineParams)
 			rtGradle.useWrapper = true
 			if (scmVars.GIT_BRANCH.contains('master'))
 			{
-				def buildInfo = rtGradle.run rootDir: "", buildFile: 'build.gradle', tasks: 'clean build assembleRelease'
+				buildInfo = rtGradle.run rootDir: "", buildFile: 'build.gradle', tasks: 'clean build assembleRelease'
 			}
 			else
 			{
-				def buildInfo = rtGradle.run rootDir: "", buildFile: 'build.gradle', tasks: 'clean build assembleDebug'	
+				buildInfo = rtGradle.run rootDir: "", buildFile: 'build.gradle', tasks: 'clean build assembleDebug'	
 			}
 			def uploadSpec = """{
 				"files": [
