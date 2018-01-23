@@ -1,5 +1,6 @@
 def call(Map pipelineParams) {
 def rtMaven = Artifactory.newMavenBuild()
+def server = Artifactory.server 'server1'
 node {
 	   try {
 		   stage('Downloading Deployments')
