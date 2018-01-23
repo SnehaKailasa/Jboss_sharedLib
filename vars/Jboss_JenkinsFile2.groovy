@@ -70,7 +70,7 @@ node {
 			properties([[$class: 'EnvInjectJobProperty', info: [loadFilesFromMaster: false, propertiesContent: "JobWorkSpace=${WORKSPACE}"], keepBuildVariables: true, keepJenkinsSystemVariables: true, on: true]])
 				emailext (
 					attachLog: true, attachmentsPattern: '*.html, output.xml', body: '''
-					${SCRIPT, template="email_template_failed.groovy"}''', subject: '$DEFAULT_SUBJECT', to: "${pipelineParams.failed_recipients}") 
+					${SCRIPT, template="email_template_failure.groovy"}''', subject: '$DEFAULT_SUBJECT', to: "${pipelineParams.failed_recipients}") 
 			sh 'exit 1'
 		}
 	}
