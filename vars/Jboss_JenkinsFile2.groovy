@@ -14,12 +14,8 @@ node {
 			server =  Artifactory.server pipelineParams.ArtifactoryServerName
 			stage('Maven Build') {
 				Reason = "Maven Build Failed"
-				println "Entered"
-				println pipelineParams.snapshot_repo
 				rtMaven.deployer server: server, snapshotRepo: pipelineParams.snapshot_repo, releaseRepo: pipelineParams.release_repo			//Deploying artifacts to this repo //
-				println "Entered1"
 				rtMaven.deployer.deployArtifacts = false		//this will not publish artifacts soon after build succeeds	//						
-				println "Entered2"
 				rtMaven.tool = 'maven'	
 				// Maven build starts here //
 				def mvn_version = tool 'maven'
@@ -47,13 +43,9 @@ node {
 			}
       
       			stage ('Pushing Artifacts'){	
-				println "Hello"
 				Reason = "Artifacts Deployment Failed"
-				println buildInfo
 				rtMaven.deployer.deployArtifacts buildInfo
-				println "Hello2"
 			  	server.publishBuildInfo buildInfo
-				println "Pushing Done"
 			}
 			
 			/*stage('Deployments') {
@@ -62,7 +54,7 @@ node {
 			}*/
 			
 			stage('Triggering QA Job') {
-				build job: 'Docker_registry', wait: false
+				build job: 'JBoss_CD_Job', wait: false
 			}
       
       			stage ('Email Notifications') {
