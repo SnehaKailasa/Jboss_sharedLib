@@ -41,6 +41,7 @@ node {
       			stage ('Pushing Artifacts'){	
 				println "Hello"
 				Reason = "Artifacts Deployment Failed"
+				println buildInfo
 				rtMaven.deployer.deployArtifacts buildInfo
 				println "Hello2"
 			  	server.publishBuildInfo buildInfo
@@ -63,11 +64,11 @@ node {
 					${SCRIPT, template="email_template_success.groovy"}''', subject: '$DEFAULT_SUBJECT', to: "${pipelineParams.success_recipients}") 
 			}
       
-			sh './clean_up.sh'
+			//sh './clean_up.sh'
 		}
 		catch(Exception e)
 		{
-			sh './clean_up.sh'
+			//sh './clean_up.sh'
 			properties([[$class: 'EnvInjectJobProperty', info: [loadFilesFromMaster: false, propertiesContent: "JobWorkSpace=${WORKSPACE}"], keepBuildVariables: true, keepJenkinsSystemVariables: true, on: true]])
 				emailext (
 					attachLog: true, attachmentsPattern: '*.html, output.xml', body: '''
