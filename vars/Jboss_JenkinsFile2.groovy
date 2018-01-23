@@ -53,11 +53,11 @@ node {
 				sh 'sleep 100s'
 			}
 			
-			stage('Deployments') {
+			/*stage('Deployments') {
 				sh """ scp ./SpringMVCSecurityXML/target/SpringMVCSecurityXML.war ${pipelineParams.remote_user}@${pipelineParams.remote_ip}:${pipelineParams.remote_location} """
-			}
+			}*/
 			
-			stage('Triggering QA Job') {
+			stage('Triggering CD Job') {
 				build job: 'JBoss_CD_Job', wait: false
 			}
       
