@@ -37,7 +37,8 @@ node {
 				}
 			}
       
-      			stage ('Pushing Artifacts'){		
+      			stage ('Pushing Artifacts'){	
+				println "Hello"
 				Reason = "Artifacts Deployment Failed"
 				rtMaven.deployer.deployArtifacts buildInfo
 			  	server.publishBuildInfo buildInfo
