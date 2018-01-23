@@ -1,5 +1,6 @@
 def call(Map pipelineParams) {
 def rtMaven = Artifactory.newMavenBuild()
+def buildInfo
 node {
 		try {
 			cleanWs()
