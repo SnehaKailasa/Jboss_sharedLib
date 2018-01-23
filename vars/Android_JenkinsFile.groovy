@@ -29,7 +29,7 @@ def call(Map pipelineParams)
 				}
 				]
 			}"""
-			server.upload(uploadSpec)
+			//server.upload(uploadSpec)
 			//rtGradle.deployer.deployArtifacts buildInfo		//deploys both the artifacts
 			rtGradle.deployer.artifactDeploymentPatterns.addInclude("*release*.apk").addExclude("*debug.apk")	//deploys only release.apk
 			server.publishBuildInfo buildInfo	  
