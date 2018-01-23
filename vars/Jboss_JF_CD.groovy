@@ -20,8 +20,8 @@ node {
 		ssh -T "${pipelineParams.remote_user}"@"${pipelineParams.remote_ip}" "bash -s" < ./remote_script.sh """
 	   }
    }
-   catch()
+   catch(Exception e)
    {
-   
+   	println "IN Catch Block"
    }
 }
