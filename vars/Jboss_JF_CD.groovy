@@ -16,7 +16,10 @@ node {
 	   }
 	   stage('Deployments') 
 	   {
-		sh """ chmod 777 remote_script.sh 
+		sh """ 
+		echo "Entered"
+		chmod 777 remote_script.sh 
+		echo "Entered2"
 		ssh -T "${pipelineParams.remote_user}"@"${pipelineParams.remote_ip}" "bash -s" < ./remote_script.sh """
 	   }
    }
