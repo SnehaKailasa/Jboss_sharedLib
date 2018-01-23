@@ -23,7 +23,7 @@ def call(Map pipelineParams)
 			def uploadSpec = """{
 				"files": [
 				{
-					"pattern": "app/build/outputs/apk/*release*.apk",
+					"pattern": "app/build/outputs/apk/*.apk",
 					"target": "Gradle_Test/"
 				}
 				]
