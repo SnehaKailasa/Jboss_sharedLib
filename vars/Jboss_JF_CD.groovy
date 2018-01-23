@@ -2,7 +2,7 @@ def call(Map pipelineParams) {
 def rtMaven = Artifactory.newMavenBuild()
 node {
 	   try {
-		   stage('')
+		   stage('Downloading Deployments')
 		   {
 			def downloadSpec = """{
 			   "files": [
