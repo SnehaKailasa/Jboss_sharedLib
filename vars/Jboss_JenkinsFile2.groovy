@@ -2,6 +2,7 @@ def call(Map pipelineParams) {
 def rtMaven = Artifactory.newMavenBuild()
 def buildInfo = null
 def server = null
+
 node {
 		try {
 			cleanWs()
@@ -52,10 +53,9 @@ node {
 				sh 'sleep 100s'
 			}
 			
-			/*stage('Deployments') {
-				sh """ chmod 777 remote_script.sh 
-				ssh -T "${pipelineParams.remote_user}"@"${pipelineParams.remote_ip}" "bash -s" < ./remote_script.sh """
-			}*/
+			stage('Deployments') {
+				sh """ scp ./SpringMVCSecurityXML/target/SpringMVCSecurityXML.war ${pipelineParams.remote_user}@${pipelineParams.remote_ip}:${pipelineParams.remote_location} """
+			}
 			
 			stage('Triggering QA Job') {
 				build job: 'JBoss_CD_Job', wait: false
@@ -68,7 +68,7 @@ node {
 					${SCRIPT, template="email_template_success.groovy"}''', subject: '$DEFAULT_SUBJECT', to: "${pipelineParams.success_recipients}") 
 			}
       
-			sh './clean_up.sh'
+			sh './clean_up.sh' 
 		}
 		catch(Exception e)
 		{
