@@ -16,14 +16,8 @@ node {
 			}"""
 			server.download(downloadSpec)
 		   }
-		   stage('Deployments') 
-		   {
-			sh """ 
-			echo "Entered"
-			chmod 777 remote_script.sh 
-			echo "Entered2"
-			cat ./remote_script.sh
-			ssh -T "${pipelineParams.remote_user}"@"${pipelineParams.remote_ip}" "bash -s" < ./remote_script.sh """
+		   stage('Deployments') {
+			sh """ scp ./SpringMVCSecurityXML/target/SpringMVCSecurityXML.war ${pipelineParams.remote_user}@${pipelineParams.remote_ip}:${pipelineParams.remote_location} """
 		   }
 	   }
 	   catch(Exception e)
