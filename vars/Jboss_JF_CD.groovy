@@ -4,6 +4,7 @@ node {
 	   try {
 		   stage('Downloading Deployments')
 		   {
+			println "Checking"
 			def downloadSpec = """{
 			   "files": [
 			    {
