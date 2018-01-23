@@ -8,6 +8,7 @@ def call(Map pipelineParams)
 	   
 		stage ('Git Checkout') {
 		  scmVars = checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'LocalBranch', localBranch: "**"]], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Dosakaya1.git']]]
+		  //scmVars = checkout scm	
 		}
 
 		stage ('Gradle Build') {
