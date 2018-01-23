@@ -20,7 +20,7 @@ node {
 			}
 			
 			stage('Docker-Compose and RFW'){
-        Reason = "Docker Compose Or RFW Failed"
+        			Reason = "Docker Compose Or RFW Failed"
 				sh """ sudo docker-compose up -d
 				sudo chmod 777 clean_up.sh
 				sudo chmod 777 wait_for_robot.sh 
@@ -37,7 +37,7 @@ node {
 				}
 			}
       
-      stage ('Pushing Artifacts'){		
+      			stage ('Pushing Artifacts'){		
 				Reason = "Artifacts Deployment Failed"
 				rtMaven.deployer.deployArtifacts buildInfo
 			  server.publishBuildInfo buildInfo
@@ -52,7 +52,7 @@ node {
 				build job: 'Docker_registry', wait: false
 			}
       
-      stage ('Email Notifications') {
+      			stage ('Email Notifications') {
 				properties([[$class: 'EnvInjectJobProperty', info: [loadFilesFromMaster: false, propertiesContent: "JobWorkSpace=${WORKSPACE}"], keepBuildVariables: true, keepJenkinsSystemVariables: true, on: true]])
 				emailext (
 					attachLog: true, attachmentsPattern: '*.html, output.xml', body: '''
@@ -64,7 +64,10 @@ node {
 		catch(Exception e)
 		{
 			sh './clean_up.sh'
-			println "In catch block"
+			properties([[$class: 'EnvInjectJobProperty', info: [loadFilesFromMaster: false, propertiesContent: "JobWorkSpace=${WORKSPACE}"], keepBuildVariables: true, keepJenkinsSystemVariables: true, on: true]])
+				emailext (
+					attachLog: true, attachmentsPattern: '*.html, output.xml', body: '''
+					${SCRIPT, template="email_template_failed.groovy"}''', subject: '$DEFAULT_SUBJECT', to: "${pipelineParams.failed_recipients}") 
 			sh 'exit 1'
 		}
 	}
