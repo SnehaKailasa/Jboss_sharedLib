@@ -9,12 +9,13 @@ node {
 			def downloadSpec = """{
 			   "files": [
 			    {
-				"pattern": " Gradle_Test/Android/GGK-21/unspecified/*.apk",
+				"pattern": "fortna_snapshot/*.war",
 				"target": "artifactories/"
 			    }
 			]
 			}"""
 			server.download(downloadSpec)
+			sh ''' ls ./artifactories '''
 		   }
 		   stage('Deployments') {
 			sh """ scp ./SpringMVCSecurityXML/target/SpringMVCSecurityXML.war ${pipelineParams.remote_user}@${pipelineParams.remote_ip}:${pipelineParams.remote_location} """
