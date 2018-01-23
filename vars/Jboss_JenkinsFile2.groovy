@@ -10,7 +10,6 @@ node {
 				checkout changelog: false, poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/SnehaKailasa23/Java_sample_app.git']]]
 				//checkout scm
 			}
-			println pipelineParams.ArtifactoryServerName
 			server =  Artifactory.server pipelineParams.ArtifactoryServerName
 			stage('Maven Build') {
 				Reason = "Maven Build Failed"
