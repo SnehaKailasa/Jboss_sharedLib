@@ -41,6 +41,7 @@ node {
 				println "Hello"
 				Reason = "Artifacts Deployment Failed"
 				rtMaven.deployer.deployArtifacts buildInfo
+				println "Hello2"
 			  	server.publishBuildInfo buildInfo
 				println "Pushing Done"
 			}
