@@ -50,7 +50,6 @@ node {
 				Reason = "Artifacts Deployment Failed"
 				rtMaven.deployer.deployArtifacts buildInfo
 			  	server.publishBuildInfo buildInfo
-				sh 'sleep 100s'
 			}
 			
 			/*stage('Deployments') {
