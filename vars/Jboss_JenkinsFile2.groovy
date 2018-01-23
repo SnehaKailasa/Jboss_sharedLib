@@ -24,6 +24,10 @@ node {
 			}
 			
 			stage('Docker-Compose and RFW'){
+				sh """ 
+				 ls SpringMVCSecurityXML/
+				 ls SpringMVCSecurityXML/target/
+				"""
         			Reason = "Docker Compose Or RFW Failed"
 				sh """ sudo docker-compose up -d
 				sudo chmod 777 clean_up.sh
