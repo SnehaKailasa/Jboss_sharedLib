@@ -12,7 +12,9 @@ node {
 			
 			stage('Maven Build') {
 				Reason = "Maven Build Failed"
-				rtMaven.tool = 'maven'							//Defining maven tool //
+				rtMaven.deployer server: server, snapshotRepo: pipelineParams.snapshot_repo, releaseRepo: pipelineParams.release_repo			//Deploying artifacts to this repo //
+				rtMaven.deployer.deployArtifacts = false		//this will not publish artifacts soon after build succeeds	//
+				rtMaven.tool = 'maven'							
 				// Maven build starts here //
 				def mvn_version = tool 'maven'
 				withEnv( ["PATH+MAVEN=${mvn_version}/bin"]  ) {
