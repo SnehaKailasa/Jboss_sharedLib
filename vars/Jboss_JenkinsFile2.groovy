@@ -40,13 +40,14 @@ node {
       			stage ('Pushing Artifacts'){		
 				Reason = "Artifacts Deployment Failed"
 				rtMaven.deployer.deployArtifacts buildInfo
-			  server.publishBuildInfo buildInfo
+			  	server.publishBuildInfo buildInfo
+				println "Pushing Done"
 			}
 			
-			stage('Deployments') {
+			/*stage('Deployments') {
 				sh """ chmod 777 remote_script.sh 
 				ssh -T "${pipelineParams.remote_user}"@"${pipelineParams.remote_ip}" "bash -s" < ./remote_script.sh """
-			}
+			}*/
 			
 			stage('Triggering QA Job') {
 				build job: 'Docker_registry', wait: false
