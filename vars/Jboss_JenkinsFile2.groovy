@@ -27,8 +27,10 @@ node {
 			stage('Docker-Compose and RFW'){
         			Reason = "Docker Compose Or RFW Failed"
 				sh """ sudo docker-compose up -d
-				sudo chmod 777 clean_up.sh
-				sudo chmod 777 wait_for_robot.sh 
+				sudo chown jenkins clean_up.sh
+				sudo chown jenkins wait_for_robot.sh 
+				sudo chmod 744 clean_up.sh
+				sudo chmod 744 wait_for_robot.sh
 				./wait_for_robot.sh """
 				step([$class: 'RobotPublisher',
 					outputPath: "/home/robot/results",
