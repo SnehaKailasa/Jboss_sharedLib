@@ -25,10 +25,6 @@ node {
 			}
 			
 			stage('Docker-Compose and RFW'){
-				sh """ 
-				 ls SpringMVCSecurityXML/
-				 ls SpringMVCSecurityXML/target/
-				"""
         			Reason = "Docker Compose Or RFW Failed"
 				sh """ sudo docker-compose up -d
 				sudo chmod 777 clean_up.sh
@@ -41,8 +37,7 @@ node {
 					otherFiles: ""])
 				// If Robot Framework test case fails, then the build will be failed //	
 				if("${currentBuild.result}" == "FAILURE"){	
-					sh ''' ./clean_up.sh
-					exit 1'''
+					sh ''' exit 1 '''
 				}
 			}
       
@@ -66,17 +61,18 @@ node {
 					attachLog: true, attachmentsPattern: '*.html, output.xml', body: '''
 					${SCRIPT, template="email_template_success.groovy"}''', subject: '$DEFAULT_SUBJECT', to: "${pipelineParams.success_recipients}") 
 			}
-      
-			sh './clean_up.sh' 
 		}
 		catch(Exception e)
 		{
-			sh './clean_up.sh'
 			properties([[$class: 'EnvInjectJobProperty', info: [loadFilesFromMaster: false, propertiesContent: "JobWorkSpace=${WORKSPACE}"], keepBuildVariables: true, keepJenkinsSystemVariables: true, on: true]])
 				emailext (
 					attachLog: true, attachmentsPattern: '*.html, output.xml', body: '''
 					${SCRIPT, template="email_template_failure.groovy"}''', subject: '$DEFAULT_SUBJECT', to: "${pipelineParams.failed_recipients}") 
 			sh 'exit 1'
+		}
+		finally
+		{
+			sh './clean_up.sh'
 		}
 	}
 }
