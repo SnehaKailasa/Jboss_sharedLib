@@ -1,4 +1,4 @@
-def call( def temp)
+def call( Map temp)
 {
   println "Value of a is " +temp.a
   println temp.a
