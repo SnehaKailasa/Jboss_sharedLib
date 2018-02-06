@@ -1,4 +1,4 @@
 def call()
 {
-prinltn "Hello"
+println "Hello"
 }
